@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Member Form</title>
+    <style>
+      /* CSS styles */
+      #memberDetail {
+        margin-top: 5px;
+        width: 500px;
+        padding: 15px;
+        border: 1px solid gray;
+      }
+      input {
+        width: 50%;
+        margin-bottom: 10px;
+      }
+      #member {
+        background-color: green;
+        border: none;
+        color: white;
+        padding: 8px 25px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Customer Form</h1>
+    <div id="buttonPanel">
+      <!-- Button for accessing member details -->
+      <button id="member">Member</button>
+    </div>
+    <div id="memberDetail">
+      <!-- Divs for displaying member search and found member details -->
+      <div id="searchMember"></div>
+      <div id="foundMember"></div>
+    </div>
+    <!-- Importing JavaScript file for handling member form functionality -->
+    <script src="./memberForm.js" type="module"></script>
+  </body>
+</html>
