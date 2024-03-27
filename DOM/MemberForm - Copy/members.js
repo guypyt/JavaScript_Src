@@ -1,6 +1,5 @@
-// Define a function named memberManagement
+// credit: https://www.fakenamegenerator.com/gen-random-us-us.php
 function memberManagement() {
-  // Array of member objects
   const members = [
     {
       id: 1001,

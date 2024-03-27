@@ -1,57 +1,83 @@
-// Import the memberManagement function from the members module
 import { memberManagement } from "./members.js";
-
-// Destructure getMembers and findMember functions from memberManagement
 const { getMembers, findMember } = memberManagement();
 
-// Define the memberForm function to handle member form functionality
 function memberForm() {
-  // Function to add event handlers
   const addEventHandler = () => {
-    // Add event listener to the member button
-    document.getElementById("member").addEventListener("click", memberHandler);
+    // เพิ่ม event handler เมื่อคลิกที่ปุ่ม member
+    const memberButton = document.getElementById("member");
+    memberButton.addEventListener("click", memberHandler);
   };
 
-  // Function to handle member button click event
   const memberHandler = () => {
-    // Clear previous search results
-    document.getElementById("searchMember").innerHTML = "";
+    // เคลียร์เนื้อหาก่อนหน้า
+    const foundMemberDiv = document.getElementById("foundMember");
+    while (foundMemberDiv.firstChild) {
+      foundMemberDiv.removeChild(foundMemberDiv.firstChild);
+    }
 
-    // Create and display member search panel
-    const searchPanel = document.getElementById("searchMember");
-    searchPanel.innerHTML = `
-            <p>Your Member Id:</p>
-            <input id="memberId" type="number">
-            <button onclick="searchHandler()">search</button>
-        `;
+    // สร้างและแสดงพาเนลสำหรับค้นหา member id
+    const searchMemberDiv = document.getElementById("searchMember");
+    while (searchMemberDiv.firstChild) {
+      searchMemberDiv.removeChild(searchMemberDiv.firstChild);
+    }
+    const memberIdParagraph = document.createElement("p");
+    memberIdParagraph.textContent = "Your Member Id:";
+    searchMemberDiv.appendChild(memberIdParagraph);
+
+    const memberIdInput = document.createElement("input");
+    memberIdInput.setAttribute("id", "memberId");
+    searchMemberDiv.appendChild(memberIdInput);
+
+    const searchButton = document.createElement("button");
+    searchButton.textContent = "search";
+    searchButton.addEventListener("click", searchHandler);
+    searchMemberDiv.appendChild(searchButton);
   };
 
-  // Function to handle search button click event
-  window.searchHandler = () => {
-    // Get member id from input
-    const memberId = document.getElementById("memberId").value;
+  const searchHandler = () => {
+    // เคลียร์เนื้อหาก่อนหน้า
+    const foundMemberDiv = document.getElementById("foundMember");
+    while (foundMemberDiv.firstChild) {
+      foundMemberDiv.removeChild(foundMemberDiv.firstChild);
+    }
 
-    // Find member by id
-    const member = findMember(parseInt(memberId));
+    // รับค่า member id จาก input
+    const memberIdInput = document.getElementById("memberId");
+    const memberId = parseInt(memberIdInput.value);
 
-    // Display member details if found, otherwise display message
-    const foundMemberPanel = document.getElementById("foundMember");
+    // ค้นหา member โดยใช้ id
+    const member = findMember(memberId);
+
+    // หากพบ member แสดงรายละเอียดของ member
     if (member) {
-      foundMemberPanel.innerHTML = `
-                <p>id: ${member.id}</p>
-                <p>firstname: ${member.firstname}</p>
-                <p>lastname: ${member.lastname}</p>
-                <p>email: ${member.email}</p>
-                <p>address: ${member.address}</p>
-            `;
-    } else {
-      foundMemberPanel.innerHTML = "<p>ไม่พบข้อมูล</p>";
+      const memberDetails = document.createElement("div");
+
+      const idParagraph = document.createElement("p");
+      idParagraph.textContent = `id: ${member.id}`;
+      memberDetails.appendChild(idParagraph);
+
+      const firstnameParagraph = document.createElement("p");
+      firstnameParagraph.textContent = `firstname: ${member.firstname}`;
+      memberDetails.appendChild(firstnameParagraph);
+
+      const lastnameParagraph = document.createElement("p");
+      lastnameParagraph.textContent = `lastname: ${member.lastname}`;
+      memberDetails.appendChild(lastnameParagraph);
+
+      const emailParagraph = document.createElement("p");
+      emailParagraph.textContent = `email: ${member.email}`;
+      memberDetails.appendChild(emailParagraph);
+
+      const addressParagraph = document.createElement("p");
+      addressParagraph.textContent = `address: ${member.address}`;
+      memberDetails.appendChild(addressParagraph);
+
+      foundMemberDiv.appendChild(memberDetails);
     }
   };
 
-  // Call addEventHandler function to initialize event handling
-  addEventHandler();
+  return { addEventHandler };
 }
 
-// Call memberForm function to initialize member form functionality
-memberForm();
+const { addEventHandler } = memberForm();
+addEventHandler();
