@@ -9,17 +9,13 @@ function memberForm() {
   };
 
   const memberHandler = () => {
-    // เคลียร์เนื้อหาก่อนหน้า
+    //เคลียร์ก่อนหน้า
     const foundMemberDiv = document.getElementById("foundMember");
-    while (foundMemberDiv.firstChild) {
-      foundMemberDiv.removeChild(foundMemberDiv.firstChild);
-    }
+    foundMemberDiv.textContent = "";
 
     // สร้างและแสดงพาเนลสำหรับค้นหา member id
     const searchMemberDiv = document.getElementById("searchMember");
-    while (searchMemberDiv.firstChild) {
-      searchMemberDiv.removeChild(searchMemberDiv.firstChild);
-    }
+
     const memberIdParagraph = document.createElement("p");
     memberIdParagraph.textContent = "Your Member Id:";
     searchMemberDiv.appendChild(memberIdParagraph);
@@ -35,20 +31,19 @@ function memberForm() {
   };
 
   const searchHandler = () => {
-    // เคลียร์เนื้อหาก่อนหน้า
+    // เคลียร์ก่อนหน้า
     const foundMemberDiv = document.getElementById("foundMember");
-    while (foundMemberDiv.firstChild) {
-      foundMemberDiv.removeChild(foundMemberDiv.firstChild);
-    }
+    foundMemberDiv.textContent = "";
 
     // รับค่า member id จาก input
     const memberIdInput = document.getElementById("memberId");
     const memberId = parseInt(memberIdInput.value);
+    // ไม่สามารถใช้ memberIdInput.value; เพราะเป็น string
 
     // ค้นหา member โดยใช้ id
     const member = findMember(memberId);
 
-    // หากพบ member แสดงรายละเอียดของ member
+    // หากพบ member แสดงรายลพเอียดของ member
     if (member) {
       const memberDetails = document.createElement("div");
 
@@ -74,6 +69,33 @@ function memberForm() {
 
       foundMemberDiv.appendChild(memberDetails);
     }
+    // const members = getMembers();
+    // if (members.length > 0) {
+    //   const memberDetailsDiv = document.createElement("div");
+
+    //   const idParagraph = document.createElement("p");
+    //   idParagraph.textContent = `id: ${member.id}`;
+    //   memberDetailsDiv.appendChild(idParagraph);
+
+    //   const firstnameParagraph = document.createElement("p");
+    //   firstnameParagraph.textContent = `firstname: ${member.firstname}`;
+    //   memberDetailsDiv.appendChild(firstnameParagraph);
+
+    //   const lastnameParagraph = document.createElement("p");
+    //   lastnameParagraph.textContent = `lastname: ${member.lastname}`;
+    //   memberDetailsDiv.appendChild(lastnameParagraph);
+
+    //   const emailParagraph = document.createElement("p");
+    //   emailParagraph.textContent = `email: ${member.email}`;
+    //   memberDetailsDiv.appendChild(emailParagraph);
+
+    //   const addressParagraph = document.createElement("p");
+    //   addressParagraph.textContent = `address: ${member.address}`;
+    //   memberDetailsDiv.appendChild(addressParagraph);
+
+    //   foundMemberDiv.appendChild(memberDetailsDiv);
+    // }
+    //กรณีเราใช้เงื่อนไขที่สอง แทน เงื่อนไขที่แรก const member = findMember(memberId); ตัวแปร member ก็ยังถูกเรียกใช้งานปกติ
   };
 
   return { addEventHandler };
